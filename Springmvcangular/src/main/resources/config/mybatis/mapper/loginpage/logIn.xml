@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="logIn">
+	
+	<!-- 회원가입 -->
+	<insert id="signUp" parameterType="hashmap">
+		INSERT INTO member VALUES(
+			seq_member_idx.nextVal,
+			#{m_email},
+			#{pwd},
+			#{m_name},
+			'none',
+			'0/',
+			#{m_auth}
+		)
+	</insert>
+	
+	<!-- 이메일 중복확인 -->
+	<select id="multiCheck" resultType="java.lang.String" parameterType="java.lang.String">
+		select m_email from member where m_email=#{m_email}
+	</select>
+	
+	<!-- 이메일 인증 확인 -->
+	<select id="signUpAuth" resultType="java.lang.String" parameterType="java.lang.String">
+		select m_auth from member where m_email=#{m_email}
+	</select>
+
+	<!-- 이메일 인증 확인 -->
+	<update id="signUpAuthUpdate"  parameterType="java.lang.String">
+		UPDATE member 
+		SET m_auth = 'check' 
+		WHERE m_email=#{m_email}
+	</update>
+	
+	<!-- 로그인 : 로그인 한 이메일의 비번, 인증을 가지고 온다. -->
+	<select id="loginMailCheck" resultType="com.spring.mvc.vo.login.SignUpVO" parameterType="java.lang.String">
+		SELECT * FROM member WHERE m_email=#{m_email}
+	</select>
+	
+	<!-- 비번 찾기 -->
+	<select id="findPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT m_pwd FROM member WHERE m_email=#{m_email}
+	</select>
+	
+	<!-- 구글 로그인 -->
+<!-- 		SELECT m_email FROM member WHERE m_email=#{m_email} -->
+	<select id="googleLogin" resultType="com.spring.mvc.vo.login.SignUpVO" parameterType="hashmap">
+		SELECT m_email, m_idx from member where m_email=#{m_email}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

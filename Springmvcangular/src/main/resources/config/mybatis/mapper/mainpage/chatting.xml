@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat">
+
+	<!-- 채팅방 목록 -->
+	<select id="chat_list" parameterType="int"
+		resultType="com.spring.mvc.vo.chatting.ChattingListVO">
+		SELECT chat_room.chat_idx, chat_room.chat_name, chat_group.chat_outdate
+		FROM chat_room, chat_group
+		WHERE chat_room.chat_idx = chat_group.chat_idx
+		AND chat_group.m_idx = #{m_idx}
+		AND chat_room.chat_idx
+		IN (SELECT chat_idx FROM chat_group WHERE m_idx = #{m_idx} )
+		ORDER BY chat_group.chat_outdate desc
+	</select>
+
+	<!-- 채팅룸 정보 -->
+	<select id="chatRoomInfos" parameterType="int"
+		resultType="com.spring.mvc.vo.chatting.ChattingRoomVO">
+		SELECT chat_comment.*, member.m_name
+		FROM chat_comment, member
+		WHERE chat_comment.chat_idx = #{chat_idx}
+		AND chat_comment.m_idx = member.m_idx
+		ORDER BY chat_date
+	</select>
+	
+	<!-- 채팅룸 참여한 사람 리스트 -->
+	<select id="getPersonList" parameterType="int" resultType="int">
+		SELECT m_idx
+		FROM chat_group
+		WHERE chat_idx = #{chat_idx}
+	</select>
+
+	<!-- 채팅방 생성 id정보 -->
+	<select id="AddChatInfos" parameterType="int"
+		resultType="com.spring.mvc.vo.chatting.addChatIdListVO">
+		SELECT m_email, m_name, m_icon, m_idx
+		FROM member
+		WHERE m_idx
+		IN ( SELECT m_idx FROM pj_group WHERE pj_idx
+		IN ( SELECT pj_idx FROM pj_group WHERE m_idx = #{m_idx}))
+	</select>
+
+	<!-- 채팅방 생성 -->
+	<insert id="addChatRoom" parameterType="java.lang.String">
+		INSERT INTO chat_room
+		VALUES(
+		seq_chat_room_idx.nextVal, #{chat_name}
+		)
+	</insert>
+
+	<!-- foreach 항목들 collection : 전달받은 인자값. item : 전달받은 ㅇ니자값을 다른이름으로 대체. open 
+		: 해당 구문이 시작할때. close : 해당 구문이 끝날때. index : 항목의 인덱스 값을 꺼낼때 사용할 변수 이름을 지정. 
+		separator : 구분자. 한번 이상 반복할때 반복되는 사이에 해당 문을 넣어준다. -->
+	<update id="addChatGroup" parameterType="java.util.Map">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO chat_group(chat_idx, m_idx, chat_outdate)
+			VALUES
+			(
+		 		seq_chat_room_idx.currVal, #{item.m_idx}, sysdate
+			)
+		</foreach>
+	</update>
+
+	<delete id="delRoom" parameterType="hashmap">
+		DELETE FROM chat_group 
+		WHERE chat_idx = #{chat_idx} 
+		AND m_idx = #{m_idx}
+	</delete>
+	
+	<!-- 채팅 내용 저장 -->
+	<insert id="saveMSG" parameterType="hashmap" >
+		INSERT INTO chat_comment
+		VALUES 
+		(
+			#{chat_idx},
+			#{m_idx},
+			#{chat_content},
+			sysdate
+			
+		)
+	</insert>
+	
+	<!-- 방생성 후 첫번째 메세지 -->
+	<insert id="firstMSG" parameterType="int" >
+	INSERT INTO chat_comment
+	VALUES
+	(
+		(select MAX(chat_idx) from chat_group where m_idx = #{m_idx}),
+		#{m_idx},
+		'환영합니다.',
+		sysdate
+	)
+	</insert>
+
+	<!-- 채팅방 나가기 -->
+	<update id="exitRoom" parameterType="hashmap" >
+		UPDATE chat_group 
+		SET chat_outdate = sysdate 
+		WHERE m_idx = #{m_idx}
+		AND chat_idx = #{chat_idx}
+	</update>
+	
+	<!-- 안읽은 메세지 가져오기 -->
+	<select id="noReadComm" parameterType="int" resultType="com.spring.mvc.vo.chatting.noReadVO">
+		SELECT chat_idx, chat_outdate 
+		FROM chat_group 
+		WHERE m_idx = #{m_idx} 
+	</select>
+	
+	<!-- 안읽은 메세지 가져오기 -->
+	<select id="noReadCntComm" resultType="int" parameterType="hashmap"> 
+        SELECT count(chat_idx)
+        FROM chat_comment 
+        WHERE TO_CHAR(chat_date, 'YYYY-MM-DD HH24:MI:SS') <![CDATA[ > ]]> #{chat_outdate}
+        AND chat_idx = #{chat_idx}
+        
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,214 @@
+<aside class="side-list" style="width: 75%;">
+  <!-- 툴바 -->
+  <div class="side-list-toolbar" style="margin: 9px 0; padding:0 12px">
+    <span class="title" style="float: left;">
+      <strong>채팅</strong>
+    </span>
+
+    <div style="text-align: right;">
+      <div style="display: inline-block; background: white;">
+        <input style="background: white; height: 18px; width: 130px;" placeholder="채팅방 이름을 입력하세요.." class="searching"
+          [(ngModel)]="searchText">
+        <i class="fas fa-search" style="cursor: pointer;"></i>&nbsp;
+      </div>
+      <div (click)="addRoomInputBox(0)" style="display: inline-block; cursor: pointer;">
+        <i class="fas fa-comment-medical"></i>&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- 채팅방들-->
+  <div class="side-list-items scrollbar" @noEnterAnimation style="height:88%;">
+
+    <div style="color: black;" class="side-list-item" @listItemAnimation
+      *ngFor="let chat of chatInfos | filter : searchText" class="roomEach" #roomEachTag id="{{chat.chat_idx}}"
+      [ngClass]="{ 'side-list-item-selected': chat.chat_idx == selectedContact?.chat_idx }">
+      <div *ngIf="ONOFF != '0'">
+        {{ONOFF}}
+      </div>
+      <!-- 채팅방 상자 -->
+      <div class="side-list-item-info" (click)="roomClick(chat.chat_idx)" >
+
+        <div style="float: left; font-size: 40px; margin-top: 3px; margin-right: 10px; line-height: 42px; ">
+          <i class="fas fa-user-circle"></i>
+          <!-- <img src="/assets/acid2Test.jpg" style=" background: grey; width: 30px; height: 30px; border-radius: 30%;"> -->
+        </div>
+
+        <div style="width: 56%; overflow: hidden; text-align: left; float: left; margin-top: 3px; display: inline-block; line-height:100%;">
+          <strong style="font-size: 11px;">
+            {{chat.chat_name}}
+          </strong><br>
+          <p style="overflow: hidden; font-size: 10px; line-height:120%; height: 22px; margin-top:4px;">
+
+          </p>
+        </div>
+
+        <div style="margin-top: 3px;font-size: 10px; float: right; line-height: 20px;">
+          2020/11/11<br>
+          <div *ngIf="chat.noReadCnt != 0" class="alarm">
+            {{chat.noReadCnt}}
+          </div>
+          <div class="roomDel" (click)="delCheckBoxShow(chat.chat_idx)">
+            나가기
+          </div>
+        </div>
+
+        <div *ngIf="chatShowBox && roomEachTag.id == roomSelectIf" [ngStyle]="{display:roomSelectDisp}" 
+              style="background: rgb(255, 133, 133); width: 10px; height: 100%; float: right;">
+
+        </div>
+ 
+      </div>
+
+      <!-- 정말 삭제할건지 묻는 팝업 -->
+      <div class="delCheckBox" *ngIf="(roomEachTag.id == delBoxShowIf)" [ngStyle]="{display:delCheckBoxDisp}">
+        <strong>
+          채팅방을 나가면 모든 정보가 삭제됩니다.
+        </strong><br>
+        <div class="delCheckBoxBtn" (click)="delRoom(chat.chat_idx)">
+          삭제
+        </div>
+        <div class="delCheckBoxBtn" (click)="delCheckBoxShow(1.1)">
+          취소
+        </div>
+      </div>
+      
+    </div>
+    
+
+  </div>
+</aside>
+
+<!-- 채팅로비, 채팅방 생성, 채팅창 포함하는 div -->
+<section class="side-list-content">
+
+  <!-- 채팅창 포함하는 div[ngStyle]="{display:chatRoomDisp}" -->
+  <div class="side-list-content-data" *ngIf="chatShowBox" @sideContentAnimation style="width: 100%;">
+
+    <!-- 채팅창 -->
+    <div class="side-list-content-data-inner" style="width: 100%;">
+      <div class="side-list-toolbar" style="height: 56px; padding-top: 10px;">
+        <div (click)="xBtn(2)" style="display: inline-block; float: left; margin-left: 44px;">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <strong>
+          {{ selectedChatRoomInfos.chat_name }}
+        </strong>
+
+        <div (click)="roomModifyBar(selectedChatRoomInfos.chat_idx)" style="display: inline-block; float: right; margin-right: 40px; cursor: pointer;">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+
+
+      <div class="chatscrollbar" id="chatContent" #scrollMe [scrollTop]="scrollMe.scrollHeight"
+        style="font-size: 12px; overflow: auto; height: 300px; width: 100%; text-align: left; padding:16px 40px;">
+
+        <!-- DB에서 가져온 과거의 메세지들 -->
+        <div *ngFor="let RoomInfos of chatRoomInfos" style="line-height: 160%; margin-bottom: 4px;">
+
+          <!-- 작성자가 나일때 -->
+          <div *ngIf="RoomInfos.m_idx == M_IDX">
+            <div style="text-align: right;">
+              <div
+                style="display: inline-block; background: wheat; border-radius: 5px; padding: 4px; max-width: 200px; word-wrap: break-word;">
+                {{RoomInfos.chat_content}}
+              </div>
+            </div>
+          </div>
+
+          <!-- 작성자가 내가 아닐때 이걸 어떻게 구분하지. 세션을 가져올 수 있을까-->
+          <div *ngIf="RoomInfos.m_idx != m_idx">
+            <div
+              style="float: left; width: 30px; height: 30px; border-radius: 30%; margin-right: 6px; font-size: 28px;">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div>
+              {{RoomInfos.m_name}}<br>
+              <div
+                style="display: inline-block; background: wheat; border-radius: 5px; padding: 4px; max-width: 200px; word-wrap: break-word;">
+                {{RoomInfos.chat_content}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- 채팅 내용 입력하는 곳 -->
+      <textarea #chat [(ngModel)]="chatInput" autofocus="autofocus"
+        style="line-height: 100%; resize: none; height: 60px; width: 60%; outline: none; overflow: auto;"
+        (keyup.enter)="sendMSG(chat.value)">
+        </textarea>
+      <span (click)="sendMSG(chat.value)"
+        style="vertical-align: super; color: rgb(255, 255, 255); font-size: 12px; border-radius: 3px; background: rgb(129, 129, 129); padding: 3px;">
+        전송
+      </span>
+    </div>
+  </div>
+
+
+
+  <!-- 채팅로비, 채팅방 생성 상자 포함하는 div -->
+  <div class="chattingRoomBox" *ngIf="lobbyAddBoxShow" @emptyContentAnimation>
+
+    <!-- 채팅로비 -->
+    <div style="align-content: center;" [ngStyle]="{display:addChatDisplay1}" style="margin-top: 40%;">
+      <img alt="empty-selection" loading="lazy" src="https://img.icons8.com/ios/100/000000/nui2.png" />
+      <p>Select an item from the list.</p>
+    </div>
+
+
+    <!-- 채팅방 생성 상자 -->
+    <div class="addChatBoxContainer" [ngStyle]="{display:addChatDisplay}">
+
+      <button class="xBtn" (click)="xBtn(0)">
+        <i class="fas fa-times"></i>
+      </button>
+      <strong>대화상대 선택 </strong>
+      <div class="seachingBtn" (click)="addRoom(chatInputBox.value)">
+        <strong>생성</strong>
+      </div><br>
+      <hr>
+
+      <div class="addListIcon" [ngStyle]="{display:addPersonListdisp}">
+        <div *ngFor="let personList of addChatIdList" style="display: inline-block; float: left;">
+          <div *ngIf="personList.checked === 'checked'" style="display: inline-block;">
+            <img src="/assets/Profile/{{personList.m_idx}}/{{personList.m_icon}}"
+              style="width: 30px; height: 30px; border-radius: 30%;">
+          </div>&nbsp;
+        </div><br>
+      </div>
+
+      <input class="addIdSearchingInput" type="text" #chatInputBox placeholder="&nbsp;&nbsp;방제목을 입력하세요.">
+      <br>
+
+
+      <div class="addIdBox" style="line-height: 100%;  position: relative; z-index: 1;">
+
+        <input class="addIdSearchingInput" type="text" [(ngModel)]="chatAreaInput" style="margin-bottom: 4px;"
+          placeholder="&nbsp;&nbsp; 검색 : 이름 또는 이메일을 입력하세요.">
+
+        <table>
+          <div class="seachingList" *ngFor="let idList of addChatIdList | filter : chatAreaInput">
+            <tr  *ngIf="idList.m_idx != M_IDX">
+              <td style="vertical-align: middle;">
+                <input type="checkbox" style="line-height: 100%;" class="checkBox" #selectOne id="{{idList.m_email}}"
+                  (click)="addPersonList(selectOne.id)">&nbsp;
+              </td>
+              <td> 
+                <div>
+                  {{idList.m_name}}&nbsp; | &nbsp;
+                  {{idList.m_email}}
+                </div>
+              </td>
+            </tr>
+          </div>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>

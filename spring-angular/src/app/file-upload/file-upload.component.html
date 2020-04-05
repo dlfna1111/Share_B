@@ -1,0 +1,56 @@
+<div class="fileUploadContainer">
+
+  <div>
+    
+    <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+      <div>
+
+        <span class="file_load">
+          <input type="file" formControlName="document" ng2FileSelect accept="*" [uploader]="uploader"
+            id="find_file01" multiple>
+          <label class="fileSelectBtn" for="find_file01">
+            <i class="fas fa-folder-plus"></i>
+            <p style="font-size: 12px; display: inline;">파일선택</p>
+          </label>
+        </span>
+        
+        <!-- 파일 업로드 버튼 -->
+        <button class="uploadBtn" color="accent" type="uploadFile">
+          <i class="fas fa-download"></i> 
+          <p style="font-size: 12px; display: inline;">업로드</p>
+        </button>
+
+        <!-- 업로드 창 닫는 버튼 -->
+        <button class="xBtn" (click)="xBtn()">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <br>
+        <!-- 드래그 존 -->
+        <div class="drop-zone scrollbar" style="padding: 12px 20px">
+          <div ng2FileDrop [uploader]="uploader" class="drag-zone">
+
+              <p *ngIf="uploader.queue.length == 0">파일 선택 또는 드래그 하세요.</p>
+
+            <div *ngFor="let item of uploader.queue">
+              <p class="fileName">
+                {{item._file.name}}
+              </p>
+              <!-- 삭제 메소드 만들어서 db랑 연결해야한다.. -->
+                <div class="delFile" (click)="item.remove()" style="display: inline; float: right;">
+                  <i class="fas fa-trash-alt"></i>
+                </div>
+            </div>
+
+          </div>
+        </div>
+
+        
+        
+      </div>
+    </form>
+  </div>
+  <!-- [disabled]="!uploadForm.valid"  -->
+</div>
+
+<hr style="margin: 0 20px; margin-bottom: 12px;">

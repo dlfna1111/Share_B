@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	 
+	<!-- DeptDAO객체 생성 및 셋터인젝션으로 sqlSession추가 -->
+	<bean id="boarddao" class="com.spring.mvc.repository.BoardDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="chatdao" class="com.spring.mvc.repository.ChatDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="logindao" class="com.spring.mvc.repository.LoginDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="mypagedao" class="com.spring.mvc.repository.MyPageDaoImpl">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+    
+		
+		
+</beans>
+
+
+
+
+
+
+
+
+
+
+

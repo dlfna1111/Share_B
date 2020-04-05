@@ -1,0 +1,225 @@
+input::placeholder {
+    font-size: 14px;
+	color: rgba(128, 128, 128, 0.5);
+}
+textarea::placeholder {
+    font-size: 14px;
+    color:rgba(128, 128, 128, 0.5);
+}
+
+
+.profileContainer{
+    position: absolute;
+    top: 100px;
+    left: 240px;
+    border-radius: 3px;
+    width: 220px;
+    height: 247px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.16);
+    padding: 20px;
+    text-align: center;
+}
+
+.profilePhoto{
+    display: inline-block;
+    border-radius: 50%;
+    width: 84px;
+    height: 84px;
+    margin-bottom: 6px;
+}
+
+.pjContainer{
+    position: absolute;
+    top: 100px;
+    left: 486px;
+    overflow: auto;
+    padding-left: 4px;
+}
+
+.starPj{
+    margin-bottom: 20px;
+    border-radius: 3px;
+    width: 800px;
+}
+
+.allPjList{
+    max-width: 800px;
+    border-radius: 3px;
+    margin-bottom: 40px;
+}
+
+.pjBox{
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 3px;
+    width: 180px;
+    height: 100px;
+    margin: 0 8px 8px 0;
+    background: honeydew;
+    padding: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.16);
+}
+
+.pjAddBox{
+    padding-top: 40px;
+    text-align: center;
+    position: fixed;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 2px dotted rgb(192, 192, 192);
+    width: 180px;
+    height: 100px;
+    color: rgb(124, 124, 124);
+    margin: 0 8px 6px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 1px 3px rgba(0, 0, 0, 0.16);
+}
+
+.yellowStar{
+    color: red;
+    font-size: 14px;
+}
+
+.whiteStar{
+    font-size: 14px;
+}
+
+.pjBox:hover .starPjBox{
+    display: inline-block;
+}
+
+.pjBox:hover .pjTrash{
+    display: inline-block;
+    font-size: 12px;
+    float: right;
+    margin-top: 10px;
+    color: rgb(75, 75, 75);
+}
+
+.pjTrash:hover{
+    font-weight: bolder;
+    margin: 0;
+    padding:0;
+}
+
+.star:hover{
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+}
+
+.starPjBox{
+    display: none;
+}
+
+.pjTrash{
+    display: none; 
+}
+
+.pjContent{
+    height: 18px;
+    width: 130px;
+    overflow: hidden;
+}
+
+.addPjContainer{
+    padding: 0; 
+    top: 30px;
+    position: relative; 
+    left: 40%; 
+    width: 380px;
+}
+
+.addPjBox{
+    width: 240px; 
+    padding: 12px; 
+    height: 104px; 
+    display: inline-block;
+    border-radius: 3px;
+}
+
+.addInput{
+    border-radius: 2px; 
+    border: 1px solid rgb(175, 175, 175); 
+    outline: none; 
+    display: block; 
+    height: 20px; 
+    margin-bottom: 6px; 
+    width: 100%;
+}
+
+.addTextarea{
+    border-radius: 3px; 
+    resize: none;
+    width: 100%;
+}
+
+.addPjColorBox{
+    height: 104px; 
+    width: 108px; 
+    margin-right: 20px; 
+    float: right; 
+    border: 1px solid rgba(163, 163, 163, 0.815);
+    text-align: center; 
+    padding-top: 6px; 
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.colorBox{
+    display: inline-block; 
+    border-radius: 3px; 
+    padding:0 4px;
+}
+
+.colorinnerBox{
+    cursor: pointer;
+    width: 26px; 
+    height: 26px; 
+    border-radius: 3px;
+}
+
+.addPjBtn{
+    font-size: 12px; 
+    padding: 4px 6px; 
+    margin: 8px 0 0 0px;
+}
+
+.photoEdit{
+    display: inline-block;
+    cursor: pointer; 
+    font-size: 12px; 
+    position: absolute; 
+    top: 116px; 
+    left: 140px;
+}
+
+.photoBtn{
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+}
+
+.nameEdit{
+    display: inline-block; 
+    font-size: 10px; 
+    position: relative; 
+    top: -26px; 
+    left: 36px;
+    cursor: pointer;
+}
+
+.editNameInput{
+    width: 50%; 
+    height: 25px; 
+    border: none; 
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+
+.editNameBtn{
+    display: inline-block; 
+    padding: 2px 5px; 
+    font-size: 12px;
+}

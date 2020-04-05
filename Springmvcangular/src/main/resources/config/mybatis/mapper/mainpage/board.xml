@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board">
+	
+	<!-- pj_group 리스트 -->
+	<select id="getPjInfo" parameterType="hashmap" resultType="com.spring.mvc.vo.board.ProjectInfoVO">
+		SELECT pj_group.*, project.pj_name, member.m_email
+		FROM pj_group, project, member
+		WHERE pj_group.pj_idx=#{pj_idx} 
+		AND project.pj_idx=#{pj_idx}
+		AND member.m_idx=pj_group.m_idx
+		ORDER BY G_LEADER
+	</select>
+	<select id="getM_idx" parameterType="int" resultType="java.lang.String">
+		SELECT m_icon FROM member WHERE m_idx = #{m_idx}
+	</select>
+	
+
+	<!-- board 리스트 -->
+	<select id="board_list" parameterType="int" resultType="com.spring.mvc.vo.board.BoardListVO">
+		select * from board where pj_idx=#{pj_idx} ORDER BY b_idx
+	</select>
+
+	<!-- memo 리스트 -->
+	<select id="memo_list" parameterType="int" resultType="com.spring.mvc.vo.board.MemoListVO">
+		select * from memo where pj_idx=#{pj_idx} order by memo_seq
+	</select>
+	
+	<!-- add Board -->
+	<insert id="addBoard" parameterType="hashmap" >
+		INSERT into board values(
+			seq_board_idx.nextVal, #{pj_idx}, #{b_name}
+		)
+	</insert>
+	
+	<!-- add Memo : 보드 생성과 동시에 메모 생성이기 떄문에 memo_seq는 1 -->
+	<insert id="addMemo" parameterType="hashmap" >
+		INSERT into memo values( 
+			seq_memo_idx.nextVal, 
+			#{pj_idx}, 
+			seq_board_idx.currVal, 
+			#{memo}, 
+			null, 
+			1,
+			null
+		)
+	</insert> 
+	
+	<!-- add Memo : 기존에 있던 보드에 메모만 추가 -->
+	<insert id="addOnlyMemo" parameterType="hashmap" >
+		INSERT into memo values( 
+			seq_memo_idx.nextVal, 
+			#{pj_idx}, 
+			#{b_idx}, 
+			#{memo}, 
+			null, 
+			(select count(*)+1 from memo where b_idx=#{b_idx}),
+			null
+		)
+	</insert>
+	
+	<!-- 삭제 전에 그 삭제하는 대상의 memo_seq를 구하기 -->
+	<select id="getMemoSeq" parameterType="int" resultType="int">
+		SELECT memo_seq FROM memo WHERE memo_idx=#{memo_idx}
+	</select>
+	
+	<!-- delete Memo -->
+	<delete id="deleteMemo" parameterType="int">
+		DELETE FROM memo WHERE memo_idx = #{memo_idx}
+	</delete>
+	
+	<!-- memo_seq reSetting -->
+	<update id="setMemoSeq" parameterType="hashmap">
+		UPDATE memo 
+		SET memo_seq = memo_seq-1 
+		WHERE memo_seq > #{memo_seq} AND b_idx = #{b_idx}
+	</update>
+	
+	<!-- delete Board -->
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board WHERE b_idx=	#{b_idx}
+	</delete>
+	
+	<!-- delete Memo : board를 삭제할때 보드에 해당하는 모든 memo를 삭제 -->
+	<delete id="deleteAllMemo" parameterType="int">
+		DELETE FROM memo WHERE b_idx = #{b_idx}
+	</delete>
+	
+	<!-- 상세 메모 : 체크리스트 -->
+	<select id="checkList" parameterType="int" resultType="com.spring.mvc.vo.board.DetailMemoVO">
+		select * from checklist where memo_idx = #{memo_idx} ORDER BY check_idx
+	</select>
+
+	<!-- 상세 메모 : 댓글 -->
+	<select id="comment" parameterType="int" resultType="com.spring.mvc.vo.board.DetailMemoVO">
+		SELECT memocomment.*, member.m_name 
+		FROM memocomment, member 
+		WHERE memocomment.memo_idx = #{memo_idx} AND member.m_idx = memocomment.m_idx 
+		ORDER BY comm_date
+	</select>
+	
+	<!-- 체크박스 선택/해제 -->
+	<update id="checkBox" parameterType="int">
+		UPDATE checklist
+		SET check_complete = 
+		CASE 
+		WHEN (select check_complete from checklist where check_idx = #{check_idx}) = 'o' THEN 'x'
+		WHEN (select check_complete from checklist where check_idx = #{check_idx}) = 'x' THEN 'o'
+		END
+		WHERE check_idx=#{check_idx}
+	</update>
+
+	<!-- memo_subject 수정 -->
+	<update id="editSubject" parameterType="hashmap">
+		UPDATE memo
+		SET memo_subject = #{subject} 
+		WHERE memo_idx=#{memo_idx}
+	</update>
+	
+	<!-- memo_dtail 수정 -->
+	<update id="editDetail" parameterType="hashmap">
+		UPDATE memo
+		SET memo_detail = #{detail} 
+		WHERE memo_idx=#{memo_idx}
+	</update>
+
+	<!-- check 항목 삭제 -->
+	<delete id="delCheck" parameterType="int">
+		DELETE FROM checklist where check_idx=#{check_idx}
+	</delete>
+	
+	<!-- check 항목 추가 -->
+	<insert id="addCheck" parameterType="hashmap">
+		insert into checklist values(
+			seq_checkList_idx.nextVal,
+			#{memo_idx},
+			#{check_content},
+			'x'
+		)
+	</insert> 
+
+	<!-- 메모 댓글 추가 -->
+	<insert id="addComm" parameterType="hashmap">
+		insert into memocomment values(
+			seq_memocomment_idx.nextVal,
+			#{m_idx},
+			#{memo_idx},
+			sysdate,
+			#{comm_content}
+		)
+	</insert> 
+	
+	<!-- 메모 댓글 삭제 -->
+	<delete id="delComm">
+		DELETE FROM memocomment WHERE comm_idx=#{comm_idx}
+	</delete>
+	
+	<!-- 메모 북마크 색상 수정 -->
+	<update id="editBookMark" parameterType="hashmap">
+		UPDATE memo
+		SET memo_bookmark = #{memo_bookmark} 
+		WHERE memo_idx=#{memo_idx}
+	</update>
+
+	<!-- 메모 북마크 없애기 -->
+	<update id="editNullBookMark" parameterType="hashmap">
+		UPDATE memo
+		SET memo_bookmark = NULL
+		WHERE memo_idx=#{memo_idx}
+	</update>
+	
+	<!-- 프로젝트 북마크 -->
+	<update id="pjBookMark" parameterType="hashmap">
+		UPDATE pj_group
+		SET pj_bookmark = 
+		CASE 
+		WHEN (select pj_bookmark from pj_group where m_idx = #{m_idx} AND pj_idx=#{pj_idx}) = 'o' THEN 'x'
+		WHEN (select pj_bookmark from pj_group where m_idx = #{m_idx} AND pj_idx=#{pj_idx}) = 'x' THEN 'o'
+		END
+		WHERE m_idx = #{m_idx} AND pj_idx=#{pj_idx}
+	</update>
+	
+	<!-- 프로젝트 초대 -->
+	<select id="searchInvId" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT m_email FROM member Where m_email LIKE '%'||#{m_email}||'%'
+	</select>
+	
+	<!-- 프로젝트 강퇴 -->
+	<delete id="kickMem" parameterType="hashmap">
+		DELETE FROM pj_group
+		WHERE pj_idx = #{pj_idx}
+		AND m_idx = #{m_idx}
+	</delete>
+	
+	<!-- foreach 항목들 collection : 전달받은 인자값. item : 전달받은 ㅇ니자값을 다른이름으로 대체. open 
+		: 해당 구문이 시작할때. close : 해당 구문이 끝날때. index : 항목의 인덱스 값을 꺼낼때 사용할 변수 이름을 지정. 
+		separator : 구분자. 한번 이상 반복할때 반복되는 사이에 해당 문을 넣어준다. -->
+	<update id="pjInvite" parameterType="java.util.Map">
+		<foreach collection="list" item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+			INTO pj_group(pj_idx, m_idx, g_leader, pj_bookmark, pj_backcolor)
+			VALUES
+			(	
+				#{item.pj_idx},
+		 		(SELECT m_idx FROM member WHERE m_email=#{item.m_email}),
+		 		null,
+		 		'x',
+		 		'#FFF6DD'
+			)
+		</foreach>
+	</update>
+	
+	<!-- 프로젝트 배경 색상 변경 -->
+	<update id="editBackColor" parameterType="java.util.Map">
+		UPDATE pj_group
+		SET pj_backcolor=#{pj_backcolor}
+		WHERE pj_idx=#{pj_idx} 
+		AND m_idx=#{m_idx}
+	</update>
+	
+	<!-- 파일 업로드 작성자 이름 가져오기 -->
+	<select id="getName" parameterType="int" resultType="java.lang.String">
+		SELECT m_name
+		FROM member
+		WHERE m_idx = #{m_idx}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

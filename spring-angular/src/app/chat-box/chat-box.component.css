@@ -1,0 +1,196 @@
+:host {
+    --side-liste-width: 300px;
+    --standard-border: 2px solid var(--dark-bg);
+    --list-item-height: 56px;
+    display: flex;
+    height: 100%;
+}
+
+.side-list .side-list-items .side-list-item-info {
+  flex-direction: column;
+  width: 100%;
+  padding: 3px 12px 0 12px;
+  height: 56px;
+  overflow: hidden;
+}
+
+.side-list-item-info{
+  cursor: pointer;
+}
+
+.side-list-content {
+  overflow: hidden;
+  display: flex;
+  width: 100%;
+}
+
+.roomEach:hover .roomDel{
+  float: left;
+  display: block;
+}
+
+.roomDel:hover .roomEach{
+  pointer-events: none;
+  background: yellow;
+}
+
+.roomDel:hover {
+  color: red;
+}
+
+.roomDel {
+	display: none;
+	cursor: pointer;
+	margin: 2.5%;
+}
+
+.alarm{
+  display: inline-block; 
+  float: right; 
+  margin-top: 4px; 
+  background: red; 
+  border-radius: 50%; 
+  line-height: 160%; 
+  width: 16px; 
+  height: 16px; 
+  color: white;
+}
+
+input::placeholder {
+    color: rgb(212, 212, 212);
+    font-size: 10px;
+    vertical-align: middle;
+}
+
+.addIdBox{
+  background: #ebecf0; 
+  margin: 6px 15px 15px 15px; 
+  box-shadow: 0px 0px 6px rgba(179, 179, 179, 0.6) inset;
+  border-radius: 4px;
+  overflow: auto;
+  height: 260px;
+  padding: 5px 5px 10px 5px;
+  padding-top: 10px;
+}
+
+.seachingList{
+  font-size: 10px; 
+  text-align: left; 
+  margin: 0 20px;
+  height: 16px;
+}
+
+.seachingBtn{
+  border: 1px solid #3f3f3f99;
+  border-radius: 4px;
+  padding: 3px;
+  display: inline; 
+  cursor: pointer;
+  font-size: 12px;
+  height: 20px;
+  line-height: 100%;
+  display: inline-block; 
+  line-height: 100%; 
+  float: right;
+  margin: 10px 15px 0 0;
+  box-shadow: 0px 0px 4px rgba(128, 128, 128, 0.6);
+}
+
+.chattingRoomBox{
+  width: 100%; 
+}
+
+.addChatBoxContainer{
+  padding-top: 30px;
+  padding-left: 60px;
+  width: 90%;
+}
+
+.xBtn{
+  height: 20px;
+  line-height: 100%;
+  float: left;
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid #3f3f3f99;
+  box-shadow: 0px 0px 4px rgba(128, 128, 128, 0.6);
+  border-radius: 4px;
+  margin: 10px 0 0 15px;
+  background: transparent;
+}
+
+hr{
+  margin: 8px;
+}
+
+.addListIcon{
+  padding:0 15px; 
+  width: 100%; 
+  overflow: auto;
+}
+
+.addIdSearchingInput{
+  width: 80%; 
+  height: 30px; 
+  margin: 0 15px; 
+  border: none; 
+  border:solid 1px #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* 채팅방 목록 스크롤바 */
+.scrollbar::-webkit-scrollbar {
+	width: 12px;
+	background-color: rgba(204, 204, 204, 0.288); border-radius: 10px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	background-color: rgb(206, 206, 206); 
+}
+.scrollbar-danger::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+	background-color:rgba(204, 204, 204, 0.288);
+	border-radius: 10px; 
+}
+
+/* 채팅창 스크롤바 */
+.chatscrollbar::-webkit-scrollbar {
+	width: 1px;
+	background-color: rgba(204, 204, 204, 0);
+}
+.chatscrollbar::-webkit-scrollbar-thumb {
+	background-color: rgba(206, 206, 206, 0); 
+}
+.chatscrollbar-danger::-webkit-scrollbar-track {
+	background-color:rgba(204, 204, 204, 0.288);
+}
+
+.delCheckBox{
+  background: #ebecf0; 
+  box-shadow: 0px 0px 6px rgba(179, 179, 179, 0.6) inset;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 10px 5px 10px 10px;
+  float: left; 
+  height: 56px; 
+  width: 90%; 
+  text-align: left; 
+  line-height: 140%; 
+  font-size: 12px;
+  margin-left: 10px;
+  color: rgb(255, 75, 75);
+}
+
+.delCheckBoxBtn{
+  float: right; 
+  display: inline-block; 
+  margin-top: 5px; 
+  color: black; 
+  margin-right: 10px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 1px 3px;
+  cursor: pointer;
+}

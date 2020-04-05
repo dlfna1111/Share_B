@@ -1,0 +1,101 @@
+
+.menu_btn {
+	background-color: rgba(255, 255, 255, 0.5); /* 버튼 배경색 */
+	border: none;
+	color: rgb(73, 73, 73); /* 그림 색상 */
+	font-size: 18px; /* 아이콘 사이즈 */
+	cursor: pointer; 
+	border-radius: 5px;
+	margin: 2px;
+	outline:none; 
+	width: 36px;
+	height: 36px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+/* Darker background on mouse-over */
+.menu_btn:hover {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+.profile{
+    border-radius: 50%; 
+	overflow: hidden; 
+	display: inline-block;
+	height:30px; 
+	width:30px; 
+	overflow: hidden; 
+	padding: 0;
+}
+
+.btn{
+	cursor: pointer;
+	outline:none;
+	border:0; 
+}
+
+.chatInBox{
+	width: 640px;
+	height: 440px;
+	background: rgb(255, 255, 255);
+	border-radius: 5px;
+	box-shadow: 2px 2px 20px rgba(5, 5, 5, 0.466), -2px -2px 20px rgba(53, 53, 53, 0.493);
+	float: right;
+	margin-top: 50px;
+	border: 2px solid dimgrey	;
+	
+}
+
+.chatBox{
+	z-index: 6;
+	position: relative;
+
+}
+
+.menu_Icon{
+	display: inline-block; 
+	float: left; 
+	line-height: 200%; 
+	margin-left: 8px;
+}
+
+.alarm_Icon{
+	display: inline-block; 
+	right: 44px; 
+	font-size: 12px; 
+	color: white; 
+	line-height: 140%; 
+	position: absolute; 
+	width: 16px; 
+	height: 16px; 
+	background: red; 
+	border-radius: 50%;
+}
+
+
+.signOutShowOuter{
+	top: 40px; 
+	right: 24px; 
+	float: right; 
+	cursor: pointer; 
+	display: inline-block; 
+	position: absolute; 
+	border-radius: 3px;
+	z-index: 6; 
+	border: 1px solid gray;
+	background: white;
+}
+
+.signOutShowBtn{
+	font-size: 12px;
+	line-height: 100%;
+	border-radius: 3px;
+	padding: 6px;
+	margin: 4px;
+}
+
+.signOutShowBtn:hover{
+	background: rgb(202, 202, 202);
+	color: red;
+}

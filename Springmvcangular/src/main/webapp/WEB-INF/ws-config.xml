@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/websocket 
+        http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd">
+ 
+<!--     <websocket:handlers> -->
+<!--         <websocket:mapping handler="echoHandler" path="/echo"/> -->
+<!--         <websocket:sockjs/> -->
+<!--     </websocket:handlers> -->
+     
+<!--     <bean id="echoHandler" class="com.spring.mvc.controller.chatting.EchoHandler" /> -->
+ <bean id="echoHandler" class="com.spring.mvc.controller.chatting.EchoHandler" /> 
+	   <websocket:handlers> 
+		   	<websocket:mapping handler="echoHandler" path="/echo" />
+		   		<!-- 웹소켓의 세션이 아닌 http세션을 사용하기 위해 있어야 하는것.. --> 
+		   		<websocket:handshake-interceptors>
+               	<bean class="com.spring.mvc.controller.chatting.HandshakeInterceptor" />
+            </websocket:handshake-interceptors>
+            <websocket:sockjs/>	   		
+	   </websocket:handlers> 
+</beans>

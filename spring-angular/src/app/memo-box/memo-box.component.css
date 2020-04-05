@@ -1,0 +1,193 @@
+
+
+.memoSubject{
+	font-size: 20px;
+	padding: 20px;
+}
+
+.memoSub{
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 3px;
+}
+
+.memoContent{
+	padding: 10px 10px 10px 20px;
+}
+
+.memoDetail{
+	font-size: 12px;
+	padding: 0 60px 10px 46px;
+}
+
+.memoCheckList{
+	padding: 10px 10px 10px 20px;
+}
+
+.progressBar{
+	border-radius: 50px;
+	height: 10px;
+	background: rgba(238, 130, 238, 0.39);
+	margin: 0 60px 10px 46px;
+}
+
+.progressBarInner{
+	border-radius: 50px;
+	height: 10px;
+	background: rgb(124, 67, 124);
+	width: 30%;
+}
+
+.checkList{
+	max-height: 200px;
+	overflow: auto;
+	padding-bottom: 5px;
+}
+
+#addCheckIcon{
+	margin: 6px 0 0 6px;
+}
+
+.fa-check{
+	color: rgb(255, 202, 89);
+}
+.checkInput{
+	margin: 6px 0 0 46px;
+	line-height: 100%;
+	padding-right: 80px;
+}
+
+.checkBoxList{
+	cursor: pointer;
+}
+
+.checkBoxList:hover .delCheck{
+	display: inline-block;
+	float: right;
+	color: red;
+	font-size: 12px;
+	margin: 6px 60px 0 0;
+}
+
+.delCheck{
+	display: none;
+}
+
+.checkBox{
+	height: 20px;
+	width: 20px;
+	margin: 0 8px 0 46px;
+	position:relative; 
+	top:4px;
+}
+
+.checkTextList{
+	font-size: 14px;
+	display: inline-block; 
+	text-decoration: line-through;
+}
+
+.comment{
+	padding: 15px 10px 10px 20px;
+}
+
+.fa-edit{
+	color: rgba(0, 0, 0, 0.425);
+}
+
+.commentBox{
+	padding: 0 10px 10px 46px;
+}
+
+.commInputBox{
+	margin: 0 60px 14px 46px;
+	min-height: 30px;
+}
+
+.commentIcon{
+	line-height: 100%; 
+	float: left; 
+	width: 30px; 
+	height: 30px; 
+	border-radius: 30%; 
+	margin-right: 6px; 
+	font-size: 28px;
+}
+
+.commInputBoxBtn{
+	cursor: pointer;
+	padding-left: 8px; 
+	line-height: 230%; 
+	font-size: 14px; 	
+	color: gray; 
+	border: 1px dotted rgb(194, 194, 194); 
+	float: left; 
+	border-radius: 4px; 
+	display: inline-block; 
+	width: 90%; 
+	height: 30px; 
+	background: rgb(248, 248, 248);
+}
+
+.commInput{
+	resize: none;
+	padding-left: 8px; 
+	line-height: 140%; 
+	font-size: 14px; 
+	background: white;
+	border: 1px solid rgb(194, 194, 194); 
+	float: left; 
+	border-radius: 4px; 
+	display: inline-block; 
+	width: 100%; 
+	outline: none;
+	margin-bottom: 3px;
+}
+
+.commInputContainer{
+	display: inline-block;
+	width: 90%; 
+}
+
+.commInputBtn{
+	font-size: 12px;
+	border: 1px solid rgb(194, 194, 194); 
+	border-radius: 3px; 
+	display: inline-block;
+	margin-right: 2px;
+	padding: 3px 3px 0 3px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.commentBox:hover .delComm{
+	display: inline-block;
+}
+
+.delComm{
+	display: none;
+	cursor: pointer;
+}
+
+.edit{
+	cursor: pointer;
+
+}
+
+.bookMark{
+	cursor: pointer;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.bookMark:hover .nullColor{
+	display: inline-block;
+	color: black;
+	padding: 3px; 
+	font-size: 10px;
+}
+
+.nullColor{
+	display: none;
+}
+

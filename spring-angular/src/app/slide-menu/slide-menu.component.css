@@ -1,0 +1,65 @@
+
+.menu{
+    border: 1px solid #ebecf0;
+    /* height가 왜 배경의 높이를 책임지고 있찌?  */
+    height: 87vh;
+    width: 350px;
+	background-color:rgb(247, 247, 247);
+	left:0;
+	position: relative;	
+	border: 0.5px solid rgb(78, 78, 78);
+	border-radius: 5px;
+	box-shadow: 0 3px 3px rgba(0, 0, 0);
+	/* transition: width 0.5s ease-in-out; */
+	overflow: hidden;
+	/* container-column 보다 위로  */
+	
+}
+/* 
+.menu.is-visible{
+  width:350px;
+  transition: width 0.5s ease-in-out;
+} */
+
+.menu_content{
+	height:auto;
+	cursor: pointer;
+	border-radius: 4px; 
+	margin: 2px 15px;
+	padding: 5px 5px 5px 15px;
+}
+
+.menu_content:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.far{
+	margin-right: 10px;
+	font-size: 20px;
+	float: left;
+}
+
+.addPjColorBox{
+    height: 114px; 
+    width: 90%; 
+    text-align: center; 
+	display: inline-block;
+	margin: 6px 0 0 24px;
+	background: #ffffff; 
+    box-shadow: 0px 0px 10px rgba(179, 179, 179, 0.6) inset;
+    border-radius: 4px;
+    padding: 16px 16px;
+}
+
+.colorBox{
+    display: inline-block; 
+    border-radius: 3px; 
+    padding:0 4px;
+}
+
+.colorinnerBox{
+    cursor: pointer;
+    width: 36px; 
+    height: 36px; 
+    border-radius: 3px;
+}

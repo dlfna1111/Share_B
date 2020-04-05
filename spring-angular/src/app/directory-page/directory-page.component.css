@@ -1,0 +1,67 @@
+.directoryContainer{
+    background: #ebecf0; 
+    margin: 6px 15px 0 15px; 
+    box-shadow: 0px 0px 10px rgba(179, 179, 179, 0.6) inset;
+    border-radius: 4px;
+    padding: 6px 16px;
+    height: 530px;
+    overflow: auto;
+}
+.btn_container{
+    /* box-shadow: 0px 0px 10px rgba(179, 179, 179, 0.6); */
+    border: 1px solid grey;
+    border-radius: 4px;
+    padding: 3px;
+    display: inline; 
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 5px;
+}
+.list{
+    text-decoration:none;
+    color: black;
+    font: 12px sans-serif; vertical-align: 16%;
+}
+
+.checkBox{
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    padding: 10px;
+    margin-right: 6px;
+}
+table:after {
+    position: absolute;
+    border-right: 1px solid #f00; 
+    content: "";
+    top: 5%;
+    bottom: 5%;
+    right: -1px;
+}
+
+.overFileNameText{
+    margin: 3px; 
+    overflow: hidden; 
+    width: 100px; 
+    white-space: nowrap; 
+    float: left; 
+    border-radius: 3px;
+}
+
+.overUserNameText{
+    margin: 0;
+    text-align: center;
+    overflow: hidden; 
+    width: 100%; 
+    white-space: nowrap; 
+    border-radius: 3px;
+}
+
+.searching{
+    margin-left: 6px; 
+    width: 140px; 
+    border: none; 
+    height: 19px; 
+    border-radius: 4px;
+}

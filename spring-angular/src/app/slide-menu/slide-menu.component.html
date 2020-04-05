@@ -1,0 +1,59 @@
+<!-- 슬라이드 메뉴 : 툴바보다 아래에 있고 싶으면 툴바 보다 아래로 이동 -->
+<div class="container-menu" style="border-radius: 3px;">
+	<div style="min-height: 30px; text-align: left; vertical-align: middle;">
+		<div class="menu">
+			<div style="margin: 10px; text-align: center;">
+				<div *ngIf="dirFlag == true" (click)="dirOnOFF()"
+					style="display: inline; float: left; margin-left: 10px; cursor: pointer;">
+					<i class="fas fa-chevron-left"></i></div>
+				MENU
+			</div>
+
+			<hr style="margin: 0 20px; margin-bottom: 10px;">
+			<div *ngIf="dirFlag == false">
+				<div class="menu_content" (click)="dirOnOFF()">
+					<div style="display: inline;">
+						<i class="far fa-folder-open"></i>
+					</div>
+					파일 보관함
+					<div style="margin-left: 35px; font-size: 16px; color: rgba(136, 136, 136, 0.575);">
+						add a file in your project.
+					</div>
+				</div>
+
+				<div class="menu_content" (click)="colorBoxShow()">
+					<div style="display: inline; margin-right: 12px;">
+						<i class="fas fa-paint-roller"></i>
+					</div>
+					배경 색상
+					<div style="margin-left: 35px; font-size: 16px; color: rgba(136, 136, 136, 0.575);">
+						<div *ngIf="!colorShow">
+							change background Color.
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="colorShow" class="addPjColorBox">
+					<div class="colorBox" *ngFor="let Color of pjColor.color">
+						<div class="colorinnerBox" (click)="colorChange(Color)" [ngStyle]="{background:Color}">
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="menu_content">
+					<i class="far fa-calendar" style="padding-left: 2px; font-size: 21px;"></i>
+					달력
+				</div> -->
+
+				<hr style="margin: 0 20px; margin-bottom: 10px;">
+				<!-- <div class="menu_content">
+					활동로그
+				</div> -->
+				
+			</div>
+			<div *ngIf="dirFlag == true">
+				<app-directory-page></app-directory-page>
+			</div>
+		</div>
+	</div>
+</div>

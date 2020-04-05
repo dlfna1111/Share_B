@@ -1,0 +1,117 @@
+
+<body>
+
+    <div class="container" id="container">
+        <!-- 로그인 -->
+        <div class="form-container sign-in-container">
+            <h1>로그인</h1>
+            <br>
+            <!-- <p style="font-size: 12px; margin-bottom: 30px;">또는 구글ID 사용</p> -->
+
+            <input type="text" [(ngModel)]="loginMail" class="loginInput" placeholder="이메일" />
+            <input type="password" [(ngModel)]="loginPwd" class="loginInput" placeholder="비밀번호"
+                (keydown.enter)="logIn()" />
+            <div class="searchPwd" (click)="findPwdBoxShow()">
+                비밀 번호 찾기
+            </div>
+
+            <button class="logInBtn" (click)="logIn()">로그인</button><br>
+
+            <div class="googleBtn"(click)="singIn('Google');" style="font-size: 12px; margin-top: 6px;">
+                <img src="assets/googlelogo.png" width="30" height="30">
+                 Google 로그인
+            </div>
+        </div>
+
+
+        <!-- 로그인, 회원가입 가려주는 panel -->
+        <div class="overlay-container" [style.left]="bigPanel">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1>Share_B</h1>
+                    <p>쉐비와 함께하세요</p>
+                    <button class="ghost" id="signUp" (click)="bigPanelBox()">
+                        {{aniBtn}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 회원가입 -->
+        <div class="form-container sign-up-container">
+            <h2 style="margin: 12px 0 0 0;">회원 가입</h2><br>
+
+            <input type="text" class="signUpInput" #signUp1 placeholder=" 닉네임" />
+            <input type="text" class="signUpInput" #signUp2 placeholder=" 이메일"
+                style="width: 74%; border-radius:3px 0 0 3px" />
+            <div class="multiCheck">
+                <div class="multiBtn" (click)="multiCheck(signUp2.value)">중복 확인</div>
+            </div>
+            <input type="password" class="signUpInput" [(ngModel)]="pwdInput" #signUp3 placeholder=" 비밀번호" />
+            <input type="password" class="signUpInput" [(ngModel)]="pwdInput1" #signUp4 placeholder=" 비밀번호 확인" /><br>
+
+            <!-- <div class="profileSelect" style="margin: 10px; 0 20px 0">
+                    프로필 사진<input type="file" class="profileInput signUpInput" style="height: 34px;"/>
+                </div> -->
+
+
+            <button (click)="signUp(signUp1.value, signUp2.value, signUp3.value, signUp4.value)">회원 가입</button>
+        </div>
+    </div>
+
+
+    <div class="lastBox" *ngIf="lastSignUpShow">
+        <h5 style="margin-bottom: 15px;">환영합니다!</h5>
+        <strong>“{{signUp2.value}}”</strong>으로<br>인증 메일을 보냈습니다.<br>
+        인증 완료 후 로그인 해주세요.<br>
+        감사합니다.
+        <br><br>
+        <button (click)="lastSignUpShow=false">확인</button>
+    </div>
+
+    <div class="findPwdBox" *ngIf="findPwdShow">
+        <div *ngIf="m_pwdShow == 0" style="display: inline-block;">
+            <div (click)="findPwdBox()" style="display: inline-block; float: right; cursor: pointer;">
+                <strong>x</strong>
+            </div>
+            <strong style="margin-left: 90px; padding: 0; ">비밀번호 찾기</strong>
+            <div class="findPwdInput">
+                <input class="findPwdInputS" #findEmaila placeholder=" 이메일" style="width: 60%;">
+                <div class="authNumInpu" (click)="sendAuthNum(findEmaila.value)" style="cursor: pointer;">
+                    인증번호 보내기</div>
+            </div>
+
+            <div class="findPwdInput">
+                <input class="findPwdInputS" #findAuthNum placeholder=" 인증번호" style="width: 80%;">
+                <div style="display: inline-block; background: white;">{{ time | date:'mm:ss'}}</div>
+            </div>
+
+            <button class="findPwdBtn" (click)="findPwd(findAuthNum.value)">확인</button>
+        </div>
+
+
+        <div *ngIf="m_pwdShow >= 1" style="height: 100%;">
+            <div (click)="findPwdBox()" style="cursor: pointer; text-align: right;">
+                <strong>x</strong>
+            </div>
+
+            <div *ngIf="m_pwdShow == 1" style="text-align: center;">
+                <div style="margin: 12px 0 0 0;">
+                    <strong style="font-size: 18px;">인증 성공!</strong><br>
+                    {{findEmail}} 님의<br> 비밀번호는<br>
+                    {{authData[1]}}입니다.
+                </div>
+            </div>
+
+            <div *ngIf="m_pwdShow == 2" style="text-align: center;">
+                <div style="margin: 20px 0 0 0;">
+                    <h4 style="margin: 0;">인증 실패</h4><br>
+                    다시 시도하세요.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+   
+</body>

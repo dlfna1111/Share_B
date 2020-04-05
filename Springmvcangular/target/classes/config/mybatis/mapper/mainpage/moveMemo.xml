@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="move">
+	
+	
+	
+	<!-- 같은 보드 이동시. 이동카드의 seq를 먼저 0으로 만들어주는 작업. 그렇게 하지 않으면 +1로 올라간다. -->
+	<update id="memo_zero" parameterType="hashmap">
+		update memo set memo_seq=0.1 where memo_idx = #{memo_idx}
+	</update> 
+	
+ 	<!-- memo_seq가 이동후 seq보다 작거나 같고 이동전 seq보다 큰 것에 -1 --> 
+	<update id="memo_minus" parameterType="hashmap">
+		UPDATE memo SET memo_seq = memo_seq-1 
+		WHERE b_idx=#{b_idx_before} 
+		AND memo_seq <![CDATA[ <= ]]> #{memo_seq_after} 
+		AND memo_seq <![CDATA[ > ]]> #{memo_seq_before}
+	</update>
+	
+	<!-- 보드가 같을때 0이었던 memo_idx를 이동후의 seq로 바꾸기 -->
+	<update id="memo_move" parameterType="hashmap">
+		UPDATE memo SET memo_seq = #{memo_seq_after} 
+		WHERE memo_idx=#{memo_idx}
+	</update>
+	
+ 	<!-- 보드가 같을때 memo_seq가 이동전보다 작고 이동후보다 같거나 큰것에 +1 해주기 --> 
+	<update id="memo_plus" parameterType="hashmap">
+		UPDATE memo SET memo_seq = memo_seq+1 
+		WHERE b_idx=#{b_idx_before}
+		AND memo_seq <![CDATA[ < ]]> #{memo_seq_before}
+		AND memo_seq <![CDATA[ >= ]]> #{memo_seq_after}
+	</update>
+	
+	<!-- 보드가 다를때 이동 전 보드에서 이동전 memo_seq보다 큰 것들 모두 -1 --> 
+	<update id="memo_minus_same" parameterType="hashmap">
+		UPDATE memo SET memo_seq = memo_seq-1 
+		WHERE b_idx=#{b_idx_before}
+		AND memo_seq <![CDATA[ > ]]> #{memo_seq_before}
+	</update>
+
+	<!-- 보드가 다를때 이동후의 memo_seq보다 크거나 같은 seq 모두 +1 --> 
+	<update id="memo_plus_same" parameterType="hashmap">
+		UPDATE memo SET memo_seq = memo_seq+1 
+		WHERE b_idx=#{b_idx_after}
+		AND memo_seq <![CDATA[ >= ]]> #{memo_seq_after}
+	</update>
+	
+	<!-- 보드가 다를때 0이었던 memo_idx를 이동후의 seq, b_idx 바꾸기 -->
+	<update id="memo_move_same" parameterType="hashmap">
+		UPDATE memo SET memo_seq = #{memo_seq_after}, b_idx = #{b_idx_after}
+		WHERE memo_idx=#{memo_idx}
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

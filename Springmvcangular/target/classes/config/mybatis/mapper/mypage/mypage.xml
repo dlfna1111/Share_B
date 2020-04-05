@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	
+	<!-- 마이페이지 내 전체 프로젝트 -->
+	<select id="getAllPj" resultType="com.spring.mvc.vo.mypage.MyPagePjVO" parameterType="int">
+		SELECT pj.*, pg.* 
+		FROM pj_group pg, project pj 
+		WHERE pg.m_idx = #{m_idx} 
+		AND pj.pj_idx = pg.pj_idx
+		ORDER BY pj_sdate
+	</select>
+	
+	<!-- 마이페이지 내 정보 -->
+	<select id="getMyInfos" resultType="com.spring.mvc.vo.login.SignUpVO" parameterType="int">
+		SELECT * FROM member WHERE m_idx = #{m_idx}
+	</select>
+	
+	<!-- HEADER 정보 -->
+	<select id="getHeader" parameterType="int">
+		SELECT m_icon FROM member WHERE m_idx=#{m_idx}
+	</select>
+	
+	<!-- 프로젝트 생성 -->
+	<insert id="addPj" parameterType="hashmap">
+		INSERT INTO project 
+		VALUES
+		(
+			seq_project_idx.nextVal,
+			#{pj_name},
+			sysdate,
+			null,
+			#{pj_content}
+		)
+	</insert>
+	
+	<!-- 프로젝트 그룹 생성 -->
+	<insert id="addPjGroup" parameterType="hashmap">
+		INSERT INTO pj_group 
+		VALUES
+		(
+			seq_project_idx.currVal,
+			#{m_idx},
+			'LEADER',
+			'x',
+			#{pj_backcolor}
+		)
+	</insert>
+	
+	<!-- 프로젝트 나가기 -->
+	<delete id="exitPj" parameterType="hashmap">
+		DELETE FROM pj_group WHERE pj_idx=#{pj_idx} AND m_idx=#{m_idx}
+	</delete>
+	
+	<!-- 프로필 사진 수정 -->
+	<update id="photoEdit" parameterType="hashmap">
+		UPDATE member 
+		SET m_icon=#{m_icon} 
+		WHERE m_idx=#{m_idx}
+	</update>
+	
+	<!-- 프로필  이름 수정 -->
+	<update id="nameEdit" parameterType="hashmap">
+		UPDATE member 
+		SET m_name=#{m_name} 
+		WHERE m_idx=#{m_idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

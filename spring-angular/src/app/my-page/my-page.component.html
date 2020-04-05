@@ -1,0 +1,137 @@
+
+<form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+    <!-- for로 안돌리면 프로필 이미지태그 콘솔에서 에러가 난다... 이유는 무르겠네... -->
+    <div class="profileContainer" *ngFor="let me of myInfo">
+        <div (click)="editBtnBoxShow()" style="margin-left: 90%; cursor: pointer;">
+            <i class="fas fa-cog"></i>
+        </div>
+        <div (click)="modifyShow = !modifyShow" style="margin-left: 90%; cursor: pointer;">
+            <input type="file" #selectedFile style="display: none;" id="find_file01" (change)="uploadSubmit()"
+                formControlName="document" ng2FileSelect accept="*" [uploader]="uploader">
+        </div>
+        <div class="profilePhoto">
+            <div *ngIf="me.m_icon != 'none' && me.m_icon != 'google'" style="border-radius: 50%; display: inline-block; border: 2px solid rgb(87, 87, 87);">
+                <img class="photoBtn" src="/assets/Profile/{{me.m_idx}}/{{me.m_icon}}">
+            </div>
+            <div *ngIf="me.m_icon === 'none'" style="border: none; display: inline-block; font-size: 83px; line-height: 86%; ">
+                <i class="far fa-user-circle"></i>
+            </div>
+            <div *ngIf="me.m_icon === 'google'" style="display: inline-block; border: none;">
+                <img class="photoBtn"  src="{{Gphoto}}">
+            </div>
+
+            <div *ngIf="editBtnShow" class="photoEdit" (click)="selectedFile.click()" value="Browse...">
+                <i class="fas fa-edit"></i>
+            </div>
+            
+        </div>
+        <br>
+        <br>
+        {{me.m_email}}<br>
+        <div *ngIf="!editBtnShow" style="margin-top: 4px;">
+            {{me.m_name}}
+        </div>
+        <div *ngIf="editBtnShow" style="margin-top: 4px;">
+            <input class="editNameInput" #editNametext maxlength="7" placeholder="  {{me.m_name}}" (keyup.enter)="editName(editNametext.value)">
+            <div *ngIf="editBtnShow" class="btn btn-success editNameBtn" (click)="editName(editNametext.value)">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+
+    </div>
+</form>
+<div class="pjContainer">
+    <div style="margin-bottom: 10px;">
+        <strong style="margin-left: 8px;">
+            <i class="far fa-star"></i>&nbsp;즐겨찾기
+        </strong>
+    </div>
+    <div *ngIf="true" class="starPj">
+        <div *ngFor="let pj of allPjInfo" style="display: inline-block;">
+            <div *ngIf="pj.pj_bookmark === 'o'" class="pjBox" [ngStyle]="{background:pj.pj_backcolor}"
+                (click)="pageShowBox(pj.pj_idx)">
+                <strong style="display: inline-block;">
+                    <p style="margin-bottom: 8px;">
+                        {{pj.pj_name}}
+                    </p>
+                </strong>
+                <div class="starPjBox">
+                    <div *ngIf="pj.pj_bookmark==='o'" class="yellowStar">
+                        <i class="fas fa-star star"></i>
+                    </div>
+                    <div *ngIf="pj.pj_bookmark==='x'" class="whiteStar">
+                        <i class="far fa-star star"></i>
+                    </div>
+                </div>
+                <div class="pjContent">
+                    <p style="font-size:12px;">{{pj.pj_content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="margin-bottom: 10px;">
+        <strong style="margin-left: 8px;">
+            <i class="far fa-clipboard"></i>&nbsp; 모든 프로젝트
+        </strong>
+    </div>
+    <div *ngIf="allPjInfo" class="allPjList">
+        <div class="pjBox" *ngFor="let pj of allPjInfo" [ngStyle]="{background:pj.pj_backcolor}" #project
+            id="{{pj.pj_idx}}" (click)="pageShowBox(project.id)">
+            <strong style="display: inline-block;">
+                <p style="margin-bottom: 8px;">
+                    {{pj.pj_name}}
+                </p>
+            </strong>
+
+            <div class="starPjBox" (click)="pjBookMark(project.id)">
+                <div *ngIf="pj.pj_bookmark==='o'" class="yellowStar">
+                    <i class="fas fa-star star"></i>
+                </div>
+                <div *ngIf="pj.pj_bookmark==='x'" class="whiteStar">
+                    <i class="far fa-star star"></i>
+                </div>
+            </div>
+            <!-- 10자 이내로 작성해야 한 줄로 나온다. -->
+            <div class="pjContent">
+                <p style="font-size:12px;">{{pj.pj_content}}</p>
+            </div>
+
+            <div class="pjTrash" (click)="exitPj(project.id)">
+                나가기
+            </div>
+        </div>
+
+        <div (click)="addPjBoxShow()" class="pjAddBox">
+            프로젝트 생성
+        </div>
+
+    </div>
+
+</div>
+
+<div *ngIf="addPjShow" style="background: rgba(0, 0, 0, 0.562); height:94%; position: relative; z-index: 3;">
+
+    <div class="addPjContainer">
+        <div class="addPjBox" [ngStyle]="{background:addBoxColor}">
+            <input class="addInput" #pj_name placeholder="  제목을 입력하세요">
+            <textarea class="addTextarea" #pj_content placeholder="  간단한 설명글 작성"></textarea>
+        </div>
+
+        <div class="addPjColorBox">
+            <div class="colorBox" *ngFor="let Color of pjColor.color">
+                <div class="colorinnerBox" (click)="addBoxColor=Color" [ngStyle]="{background:Color}">
+                </div>
+            </div>
+        </div>
+
+        <div class="btn btn-success addPjBtn" (click)="addPj(pj_name.value, pj_content.value)">
+            프로젝트 생성
+        </div>
+        <div (click)="addPjBoxShow()" class="btn btn-success addPjBtn">
+            <i class="fas fa-times"></i>&nbsp; 닫기
+        </div>
+    </div>
+
+</div>

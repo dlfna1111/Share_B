@@ -1,0 +1,78 @@
+<div *ngIf="uploadFlag == true">
+    <app-file-upload (uploadFlag)="uploadOff($event)" (dirList)="dirListUpload($event)"></app-file-upload>
+</div>
+
+<div style="text-align: right; margin:0 15px 0 0;">
+    <div style=" text-align: left; display:inline; height: 20px; background: white;">
+        <input class="searching" placeholder="검색어 입력" [(ngModel)]="searchText">
+
+        <!-- 필요없는 아이콘인데 디자인 다시 잡아야해서 나중에 -->
+            <i class="fas fa-search" style="cursor: pointer;"></i>
+    </div>
+
+    <div class="btn_container" (click)="uploadOnOff()">
+        <i class="fas fa-upload"></i>
+        <p style="font-size: 12px; display: inline;">업로드</p>
+    </div>
+
+    <div class="btn_container" (click)="downloadFile()">
+        <i class="fas fa-download"></i>
+        <p style="font-size: 12px; display: inline;">선택 다운</p>
+    </div>
+</div>
+
+<div class="directoryContainer">
+    <table style="width: 100%; margin-top: 10px; font-size: 12px;">
+        <tr style=" text-align: center;  font-size: 13px;">
+            <td><input type="checkbox" class="checkBox checkAll" (change)="selectAll()" [(ngModel)]="allCheck">
+            </td>
+            <td colspan="2"><strong>파일 이름</strong></td>
+
+            <td>
+                <div (click)="nameSort()" style="display: inline; margin: 0; padding: 0; cursor: pointer;">
+                    <strong>작성자</strong>
+                    <i class="fas fa-sort"></i>
+                </div>
+            </td>
+            
+            <td>
+                <div (click)="dateSort()" style="display: inline; margin: 0; padding: 0; cursor: pointer;">
+                    <strong>작성일</strong>
+                    <i class="fas fa-sort"></i>
+                </div>
+            </td>
+        </tr>
+
+        <tr *ngFor="let list of dirList | filter : searchText" style="overflow: hidden;">
+            <td style=" text-align: center;"> 
+                <input type="checkbox" class="checkBox" #selectOne id="{{list.file_name}}"
+                        [(ngModel)]="list.checked">
+            </td>
+            <td colspan="2" style=" text-align: left;">
+                <!-- 삭제 메소드 만들어서 db 다녀와야한다. -->
+                <div style="display: inline;" (click)="deleteDir(list.file_title)">
+                    <i class="fas fa-trash-alt" style="font-size: 12px; float: right; margin: 4px; cursor: pointer;"></i>
+                </div>
+
+                <a class="list" href="assets/Project/{{list.pj_idx}}/{{list.file_title}}" type="media_type" target="_blank" download="{{list.file_title}}">
+
+                    <p class="overFileNameText">
+                        {{list.file_name}}
+                    </p>
+
+                    <i class="fas fa-download" style="font-size: 12px; float: right; margin: 4px;"></i> 
+                </a>
+            </td>
+
+            <td>
+                <p class="overUserNameText">
+                    {{list.userName}}
+                </p>
+            </td>
+
+            <td style="text-align: center;">
+                {{list.dirDate}}
+            </td>
+        </tr>
+    </table>
+</div>

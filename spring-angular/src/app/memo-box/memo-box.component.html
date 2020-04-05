@@ -1,0 +1,159 @@
+
+		<div class="memoSubject">
+			<div *ngIf="editSubShow" style="display: inline-block;">
+				<strong style="display: inline-block; margin-right: 4px;">
+					{{detailMemo.memo_subject}}
+				</strong>
+
+				<div class="bookMark">
+					<div  #ignoredButton [style.color]="color1" [style.color]="detailMemo.memo_bookmark" 
+					 style="display: inline-block; ">
+						<i (click)="toggle = !toggle" class="fas fa-bookmark"></i>
+						<div class="nullColor" (click)="nullColor()">
+							<div class="btn btn-primary btn-xs" style="margin-bottom: 4px; padding: 3px 2px; width: 50px; height: 20px; font-size: 10px;">
+								색상 없음
+							</div>
+						</div>
+					</div>
+					
+					<small style="width: 0; height: 0; margin: 0; padding: 0;"
+							[cpOKButton]="true"
+							[cpSaveClickOutside]="false"
+							(colorPickerSelect)="onChangeColor($event)"
+							[cpOKButtonClass]= "'btn btn-primary btn-xs'"
+							[(colorPicker)]="color1"
+							[cpIgnoredElements]="[ignoredButton, ignoredInput]"
+							[(cpToggle)]="toggle"
+							[cpCancelButton] = "true" 
+							[cpCancelButtonClass] = "'btn btn-primary btn-xs'"
+							[cpPosition]="'bottom'">
+							
+					</small>
+					
+				</div>&nbsp;	
+
+				<div class="edit" (click)="editBox(1)" style="display: inline-block; font-size: 12px;">
+					<i class="fas fa-edit"></i>
+				</div>
+			</div>
+			<div *ngIf="!editSubShow"style="display: inline-block;">
+				<input placeholder="{{detailMemo.memo_subject}}" style="display: inline-block; margin-right: 6px;" #editSubInput (keyup.enter)="editSubject(editSubInput.value)">
+				<div class="memoSub" (click)="editSubject(editSubInput.value)" style="display: inline-block;">
+					<i class="fas fa-check"></i></div>&nbsp;
+				<div class="memoSub" (click)="editBox(1)" style="display: inline-block;">
+					<i class="fas fa-times"></i></div>
+			</div>
+			
+			<div class="xBtn" (click)="xBtn()" style="cursor: pointer; float: right; ">
+				<i class="fas fa-times"></i>
+			</div>
+		</div>
+
+		<!-- 상세내용 부분 -->
+		<div class="memoContent">
+			<i class="fas fa-align-left"></i>
+			
+			<strong style="padding-right: 10px;">&nbsp;&nbsp;상세 내용</strong>
+			<div class="edit" (click)="editBox(2)" style="display: inline-block; font-size: 12px;">
+				<i class="fas fa-edit"></i>
+			</div>
+			
+		</div>
+
+		<div *ngIf="editDetailShow" class="memoDetail">
+			{{detailMemo.memo_detail}}
+		</div>
+		<div *ngIf="!editDetailShow" class="memoDetail">
+			<textarea #editDetailInput style="resize: none; width: 100%; height: 100%;"></textarea>
+			<div *ngIf="!editDetailShow" (click)="editDetail(editDetailInput.value)" 
+					style="cursor: pointer; padding: 2px; float: left; display: inline-block; border-radius: 3px;">
+					<i class="fas fa-check" ></i>
+			</div>&nbsp;
+			<div (click)="editBox(2)" style="cursor: pointer; padding: 2px; display: inline-block; border-radius: 3px;">
+				<i class="fas fa-times"></i></div>
+		</div>
+
+
+		<!-- 체크리스트 부분 -->
+		<div class="memoCheckList">
+			<i class="far fa-check-square"></i>
+			<strong style="padding-right: 10px;">&nbsp;&nbsp;체크 리스트</strong>
+			<div (click)="addBox()" style="display: inline-block; float: right; margin-right: 54px;">
+				<i class="fas fa-plus" style="font-size: 12px; cursor: pointer;">&nbsp;추가</i>
+			</div>
+		</div>
+		
+		<div class="progressBar">
+			<div class="progressBarInner" [ngStyle]="{width:checkListBarWidth}">
+			</div>
+		</div>
+		<div class="checkList" *ngFor="let check of checkList">
+			<!-- *ngFor로 돌려서 생성 -->
+			<div class="checkBoxList" style="height: 24px;">
+				<input type="checkbox" class="checkBox" (click)="chListCheck(checkIdx.id)" [checked]="check.check_complete == 'o'">
+				<div class="checkTextList" [ngStyle]="{'text-decoration': check.check_complete === 'o' ? 'line-through':'none' }" 
+					#checkIdx id="{{check.check_idx}}" (click)="chListCheck(checkIdx.id)" >
+				{{check.check_content}}</div>
+				<div class="delCheck" (click)="delCheck(check.check_idx)">삭제</div>
+			</div>
+		</div>
+		<div class="checkInput" *ngIf="!addCheckShow">
+			<textarea #addCheckInput (keyup.enter)="addCheck(addCheckInput.value)" 
+				style="resize: none; border-radius: 3px; margin-right: 8px; height: 28px; width: 84%; overflow: hidden; "></textarea>
+			<div>
+				<i class="fas fa-check" id="addCheckIcon" (click)="addCheck(addCheckInput.value)"></i>&nbsp;
+				<i class="fas fa-times" id="addCheckIcon" (click)="addBox()"></i>
+			</div>
+		</div>
+
+		<!-- 댓글 부분 -->
+		<div class="comment">
+			<i class="far fa-comment-dots"></i>
+			<strong style="padding-right: 10px;">&nbsp;&nbsp;댓글</strong>
+		</div>
+
+		<!-- 댓글 쓰는 곳	 -->
+		<div class="commInputBox">
+			<div style="width: 100%;">
+				<div class="commentIcon">
+					<i class="fas fa-user-circle"></i>
+				</div>
+				<div class="commInputBoxBtn" (click)="commInput()" *ngIf="commInputBoxShow">
+					댓글을 입력하세요.
+				</div>
+				
+				<div class="commInputContainer" *ngIf="!commInputBoxShow">
+					<textarea [(ngModel)]="commInputBox" #commInput class="commInput"></textarea>
+					
+					<div class="commInputBtn">
+						<i class="far fa-paper-plane" (click)="addComm(commInput.value)"> 저장</i>
+					</div>
+					<div class="commInputBtn" (click)="commInputBoxShow=true">
+						<i class="fas fa-times"> 닫기</i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div *ngFor="let comm of comment">
+			<div class="commentBox">
+				<div class="commentIcon">
+					<i class="fas fa-user-circle"></i>
+				</div>
+				<div style="font-size: 12px;">
+					<strong style="display: inline-block;">{{comm.m_name}}</strong>
+						&nbsp;<small>{{comm.comm_date|date: "HH:MM a"}}</small> 
+						<div class="delComm" (click)="delComm(comm.comm_idx)">
+							&nbsp;<small>삭제</small>
+						</div>
+
+						<br>
+					<div style="display: inline-block; background: wheat; border-radius: 5px; padding: 4px; max-width: 200px; word-wrap: break-word;">
+						{{comm.comm_content}}
+					</div>
+
+					
+				</div>
+			</div>
+		</div>
+		
