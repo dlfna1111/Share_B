@@ -1,32 +1,106 @@
-# HANUMAN Jekyll Theme
+# 신이룸의 포트폴리오
+## 칸반보드
 
-[![Build Status](https://travis-ci.org/samanyougarg/hanuman.svg?branch=master)](https://travis-ci.org/samanyougarg/hanuman)
+칸반보드는 팀으로 이루어진 프로젝트를 체계적으로 진행될 수 있게 도와주는 웹사이트입니다. <br>
+프로젝트 진행중 발생하는 모든 이슈와 팀원들의 업무, 진행상태가 어떠한지도 한 눈에 볼 수있도록 되어 있습니다.<br>
+포트폴리오로 칸반보드를 선택한 이유는 프론트엔드에 적합한 Angular를 효과적으로 활용해보기 위함이었고, <br>
+Spring과 다른 프론트엔드 Framework를 연결해 구축하는 방법을 공부하기 위함으로 선택하였습니다.<br>
+<br>
+<br>
 
+## 기능
+- [채팅](#채팅)
+  - [채팅방 생성/나가기/알람](#채팅)
+- [로그인 페이지](#로그인-페이지)
+  - [회원가입](#로그인-페이지)
+  - [회원가입 이메일 인증](#로그인-페이지)
+  - [비밀번호 찾기](#로그인-페이지)
+  - [Share_B/구글 로그인](#로그인-페이지)
+- [마이 페이지](#마이-페이지)
+  - [정보 수정](#마이-페이지)
+  - [프로젝트 생성/나가기/즐겨찾기](#마이-페이지)
+- [프로젝트 페이지](#프로젝트-페이지)
+  - [보드 생성/삭제](#프로젝트-페이지)
+  - [메모 드래그&드롭/생성/삭제](#프로젝트-페이지)
+  - [메모 상세보기](#메모-상세보기)
+    -[북마크](#메모-상세보기)
+    -[메모 수정, 상세 내용](#메모-상세보기)
+    -[메모 체크리스트, 댓글](#메모-상세보기)
+- [슬라이드 메뉴](#부가-메뉴) 
+  - [팀원 초대](#부가-메뉴)
+  - [파일 보관함](#부가-메뉴)
+  - [프로젝트 배경 변경](#부가-메뉴)
+- [사용 언어 및 framework](#스킬)
+  - [Spring](#스프링)
+  - [Angular](#앵귤러)
+  - [Typescript](#타입스크립트)
+  - [CSS/HTML](#디자인)
+- [끝으로](#끝)
 
+<br>
+<br>
+<br>
 
-<a href="https://www.buymeacoffee.com/samanyougarg"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" target="_blank"></a>
+## 채팅
+![채팅](https://user-images.githubusercontent.com/58598810/78499974-d290fc80-778e-11ea-97b0-a4c47825d50e.gif)
+- 단체 채팅
+- 채팅방 생성/ 나가기
+- 알람
 
-## Live Demo
-## [Hanuman](https://samanyougarg.com/hanuman)
+<br>
+<br>
+<br>
 
+## 로그인 페이지
+![ezgif com-crop](https://user-images.githubusercontent.com/58598810/78500038-31567600-778f-11ea-87f3-1ac3716b92fc.gif)
+- 회원가입
+- 회원가입 이메일 인증
+- 비밀번호 찾기
+- Share_B/구글 로그인
 
-## Features
+<br>
+<br>
+<br>
 
-- Minimal
-- Responsive
+## 마이 페이지
+![개인정보 변경](https://user-images.githubusercontent.com/58598810/78500047-459a7300-778f-11ea-9351-acf431248f95.gif)
+- 개인정보 수정<br>
+![프로젝트생성](https://user-images.githubusercontent.com/58598810/78503053-3f13f780-779f-11ea-9acd-33ee349eacce.gif)
+- 프로젝트 생성, 나가기
 
-## What is AMP
+<br>
+<br>
+<br>
 
+## 프로젝트 페이지
+![메모상세창](https://user-images.githubusercontent.com/58598810/78502473-4be31c00-779c-11ea-9577-b0738e790faa.gif)
+- 메모 상세창
+  - 북마크
+  - 상세 내용
+  - 체크리스트
+  - 댓글
+  <br>
+![보드메모123](https://user-images.githubusercontent.com/58598810/78502625-fb1ff300-779c-11ea-9ab9-f2a793d7dbdd.gif)
+- 보드 생성, 삭제
+- 메모 드래그&드롭, 생성, 삭제
 
-### 1. Cloning the repository and updating settings
-1. Fork this repository and clone the forked repository.
-2. Update the _config.yml file as per your requirements.
-3. Add your posts to the _posts directory.
-4. Deploy to Github Pages or your own server.
+<br>
+<br>
+<br>
+
+## 부가 메뉴
+![초대강퇴배경변경](https://user-images.githubusercontent.com/58598810/78502700-53ef8b80-779d-11ea-8272-9a0558e6bab4.gif)
+- 프로젝트 초대, 강퇴
+- 배경 설정
+
+<br>
+
+![파일보관함2](https://user-images.githubusercontent.com/58598810/78503078-69fe4b80-779f-11ea-9d39-95ecee61e0ed.gif)
+- 파일 다중 업로드, 다중 다운로드
+- 드래그&드롭 업로드, 업로드 창에서 삭제
+- 파일 삭제
+
+<br>
+<br>
 
 ## Thanks
-Hanuman is based on [amplify](https://github.com/ageitgey/amplify) jekyll theme. Thank You.
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
