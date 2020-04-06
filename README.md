@@ -72,13 +72,13 @@
 <br>
 
 ## 마이 페이지
-![개인정보 변경](https://user-images.githubusercontent.com/58598810/78500047-459a7300-778f-11ea-9351-acf431248f95.gif)
+![개인정보수정](https://user-images.githubusercontent.com/58598810/78534637-b5f3d380-7825-11ea-9ecb-9d1c21d0ace0.gif)
 - 개인정보 수정
 
   <br>
   
-![프로젝트생성](https://user-images.githubusercontent.com/58598810/78503053-3f13f780-779f-11ea-9acd-33ee349eacce.gif)
-- 프로젝트 생성, 나가기
+![mypage플젝](https://user-images.githubusercontent.com/58598810/78534647-b9875a80-7825-11ea-8dc3-b5d11e7876d8.gif)
+- 프로젝트 생성, 나가기, 즐겨찾기
 
 <br>
 <br>
