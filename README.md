@@ -2,9 +2,18 @@
 ## 칸반보드
 
 칸반보드는 팀으로 이루어진 프로젝트를 체계적으로 진행될 수 있게 도와주는 웹사이트입니다. <br>
-프로젝트 진행중 발생하는 모든 이슈와 팀원들의 업무, 진행상태가 어떠한지도 한 눈에 볼 수있도록 되어 있습니다.<br>
-포트폴리오로 칸반보드를 선택한 이유는 프론트엔드에 적합한 Angular를 효과적으로 활용해보기 위함이었고, <br>
-Spring과 다른 프론트엔드 Framework를 연결해 구축하는 방법을 공부하기 위함으로 선택하였습니다.<br>
+프로젝트 진행중 발생하는 모든 이슈와 팀원들의 업무, 진행상태가 어떠한지도 한 눈에 볼 수 있도록 되어 있습니다.<br>
+
+<br>
+<br>
+
+## 주요 기술
+- 개인 프로젝트
+- framework : Spring, Angular 6 
+- 언어/문법 : JAVA, Typescript, JSON, HTML, CSS, REST API, JSON
+- 개발 Tool : Eclipse, Visual Studio Code, Apache Tomcat v8.5
+- DB액션 처리: JDBC, myBatis, Oracle
+
 <br>
 <br>
 
