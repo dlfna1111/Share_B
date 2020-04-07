@@ -49,6 +49,9 @@
 - 단체 채팅
 - 채팅방 생성/ 나가기
 - 알람
+- 기술
+  - Spring WebSocket
+    - ehcoHandler를 작성하여, WebSocket이 열린 session모두가 이곳을 거친다.
 
 <br>
 <br>
